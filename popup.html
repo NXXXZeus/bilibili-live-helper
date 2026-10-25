@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B站直播助手</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23087ea4'/%3E%3Ctext x='8' y='24' font-size='24' fill='white'%3EK%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="popup.css">
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <header><h1>B站直播助手</h1><button id="toggle" type="button">读取状态</button></header>
+  <p class="notice" id="chat-summary">40次点赞尝试 · 弹幕间隔和内容可自定义<br>首次发送等待所选间隔，不立即提交。</p>
+  <form id="settings-form">
+    <div class="checks">
+      <label><input id="likes" type="checkbox" checked> 自动点赞</label>
+      <label><input id="chat" type="checkbox" checked> 定时发送弹幕</label>
+    </div>
+    <div class="chat-config">
+      <label class="field">发送间隔
+        <select id="chat-minutes" aria-label="发送间隔">
+          <option value="1">1分钟</option><option value="2" selected>2分钟</option>
+          <option value="3">3分钟</option><option value="4">4分钟</option>
+          <option value="5">5分钟</option><option value="6">6分钟</option>
+          <option value="7">7分钟</option><option value="8">8分钟</option>
+          <option value="9">9分钟</option><option value="10">10分钟</option>
+        </select>
+      </label>
+      <label class="field">弹幕内容
+        <input id="chat-text" type="text" value="🫡" placeholder="输入文字或表情" autocomplete="off" aria-describedby="chat-help">
+      </label>
+    </div>
+    <p class="help" id="chat-help">最多200个字符，不支持空白或换行；平台可能有更短限制。保存内容或间隔后重新计时，设置会保留。</p>
+    <label class="field">点赞方式
+      <select id="like-mode"><option value="keyboard">模拟K键（默认）</option><option value="button">点击页面点赞按钮</option></select>
+    </label>
+    <p class="help">模拟K不是硬件按键。若页面不认K，手动切换按钮模式；计数只表示尝试次数。</p>
+    <label class="field">40次的执行范围
+      <select id="like-scope"><option value="visit">每次进入直播间</option><option value="daily">同房间每天一次（本次浏览器会话）</option></select>
+    </label>
+    <label class="field">作用房间
+      <select id="room-scope"><option value="all">所有识别到的直播间</option><option value="selected">仅指定房间</option></select>
+    </label>
+    <label class="field" id="room-field" hidden>房间号（多个用逗号或换行分隔）
+      <textarea id="room-ids" rows="2" placeholder="1883358196"></textarea>
+    </label>
+    <button class="save" id="save" type="submit">保存设置</button>
+  </form>
+  <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+  <section aria-labelledby="status-heading"><h2 id="status-heading">最近识别的房间</h2><div id="rooms"><p class="help">正在读取…</p></div></section>
+  <footer>输入中和有草稿时暂缓；多标签同房间去重。后台标签可能被Chrome延迟，电脑休眠或浏览器关闭不会执行。不能保证续牌或等级入账，请遵守平台规则。</footer>
+</body>
+</html>

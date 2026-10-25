@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "minimum_chrome_version": "106",
+  "name": "B站直播助手 · K键与定时弹幕",
+  "version": "1.1.0",
+  "description": "识别B站直播间，进行40次K键点赞尝试，可选择1到10分钟间隔并自定义弹幕内容。可暂停，支持赛事iframe与多标签去重。",
+  "permissions": ["storage"],
+  "host_permissions": ["https://live.bilibili.com/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "B站直播助手", "default_popup": "popup.html" },
+  "content_scripts": [{
+    "matches": ["https://live.bilibili.com/*"],
+    "js": ["content.js"],
+    "run_at": "document_idle",
+    "all_frames": true
+  }],
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}
